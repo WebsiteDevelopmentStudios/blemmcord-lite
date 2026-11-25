@@ -1,17 +1,15 @@
 [package]
 name = "blemmcord-lite"
 version = "0.1.0"
-description = "A lightweight desktop shell for the official Discord web client"
+description = "A lightweight native Rust Discord-inspired desktop client"
 authors = ["WebsiteDevelopmentStudios"]
 edition = "2021"
 
-[lib]
-name = "blemmcord_lite_lib"
-crate-type = ["staticlib", "cdylib", "rlib"]
-
-[build-dependencies]
-tauri-build = { version = "2", features = [] }
-
 [dependencies]
-serde = { version = "1", features = ["derive"] }
-tauri = { version = "2", features = [] }
+eframe = { version = "0.32", features = ["wgpu"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true

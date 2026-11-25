@@ -5,7 +5,7 @@ const PANEL: egui::Color32 = egui::Color32::from_rgb(31, 33, 40);
 const PANEL_DARK: egui::Color32 = egui::Color32::from_rgb(20, 21, 26);
 const ACCENT: egui::Color32 = egui::Color32::from_rgb(88, 101, 242);
 const TEXT: egui::Color32 = egui::Color32::from_rgb(235, 236, 239);
-const MUTED: egui::Color32 = egui::Color32::from_rgb(148,  is 155, 166);
+const MUTED: egui::Color32 = egui::Color32::from_rgb(148, 155, 166);
 
 struct BlemmcordApp {
     selected_channel: String,

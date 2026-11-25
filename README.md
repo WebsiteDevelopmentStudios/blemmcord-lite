@@ -54,6 +54,7 @@ Packaging is intentionally disabled in this first scaffold until the project has
 │   ├── capabilities/
 │   │   └── default.json
 │   ├── src/
+│   │   ├── lib.rs
 │   │   └── main.rs
 │   ├── build.rs
 │   ├── Cargo.toml

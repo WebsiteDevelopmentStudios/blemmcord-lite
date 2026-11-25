@@ -2,13 +2,9 @@
   "name": "blemmcord-lite",
   "private": true,
   "version": "0.1.0",
-  "type": "module",
+  "description": "Native Rust desktop client",
   "scripts": {
-    "dev": "tauri dev",
-    "build": "tauri build",
-    "tauri": "tauri"
-  },
-  "devDependencies": {
-    "@tauri-apps/cli": "^2.0.0"
+    "dev": "cargo run --manifest-path src-tauri/Cargo.toml",
+    "build": "cargo build --release --manifest-path src-tauri/Cargo.toml"
   }
 }

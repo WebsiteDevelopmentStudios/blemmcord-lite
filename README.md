@@ -31,7 +31,7 @@ Discord's web client remains responsible for login, servers, messages, voice, vi
 
 ```powershell
 npm install
-npm run tauri dev
+npm run dev
 ```
 
 The first Rust build may take several minutes while Cargo downloads and compiles dependencies.
@@ -39,7 +39,7 @@ The first Rust build may take several minutes while Cargo downloads and compiles
 ## Build
 
 ```powershell
-npm run tauri build
+npm run build
 ```
 
 Packaging is intentionally disabled in this first scaffold until the project has its final icon and installer settings.

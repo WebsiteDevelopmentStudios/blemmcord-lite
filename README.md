@@ -1,95 +1,73 @@
 # Blemmcord Lite
 
-A Rust-powered Windows desktop shell for the official Discord web client, built with Tauri 2 and Microsoft Edge WebView2.
+A lightweight native Windows desktop client shell written in Rust. The interface uses **egui + wgpu** and does not embed Chromium, Electron, Node.js, Tauri, or WebView2.
 
-## Phase 1 status
+## Phase 1: Native UI foundation
 
-- [x] Project scaffold and application identity
-- [x] Tauri 2 + Rust application entry point
-- [x] WebView2 window opens the official Discord web app
-- [x] Dark Discord-inspired startup/fallback page
-- [x] Basic Rust runtime information command
-- [x] Windows NSIS (.exe) and MSI installer targets enabled
-- [ ] Local settings persistence
-- [ ] Build and test the Windows installers
-- [ ] Memory benchmarking against the normal Discord desktop client
+- [x] Native Rust application entry point
+- [x] egui interface rendered with wgpu
+- [x] Dark Discord-inspired layout
+- [x] Server rail and selectable text-channel navigation
+- [x] Native message composer prototype
+- [x] Windows x64 CI build workflow
+- [ ] Run and verify the first Windows build
+- [ ] Add app settings and persistent preferences
+- [ ] Measure memory usage on Windows
 
-## What gets built
+The current interface is a local UI prototype. It does **not** connect to Discord, sign in, or send messages yet.
 
-The Windows release build is configured to produce:
+## Build on Windows
 
-- **NSIS installer (.exe)** — a normal Windows setup wizard.
-- **MSI installer (.msi)** — a Windows Installer package.
-- **Application executable** — the actual Blemmcord Lite program.
-
-The generated files will be under `src-tauri/target/release/bundle/` after a successful Windows build. The raw executable is under `src-tauri/target/release/`.
-
-## Requirements
-
-- Windows 10 or 11
-- Rust stable toolchain (install from https://rustup.rs/)
-- Microsoft C++ Build Tools with the MSVC toolchain and Windows SDK
-- Microsoft Edge WebView2 Runtime
-- Node.js LTS and npm
-
-## Run in development
+Install:
+- Rust stable (MSVC toolchain): https://rustup.rs/
+- Visual Studio Build Tools with the Desktop development with C++ workload
+- Windows 10/11 SDK
+- Git
 
 From the repository root in PowerShell:
 
 ```powershell
-npm install
-npm run dev
+cargo run --manifest-path src-tauri/Cargo.toml
 ```
 
-The first Rust build may take several minutes while Cargo downloads and compiles dependencies.
-
-## Build the Windows EXE and installers
-
-Run this on a Windows PC:
+Build an optimized executable:
 
 ```powershell
-npm install
-npm run build
+cargo build --release --manifest-path src-tauri/Cargo.toml
 ```
 
-After a successful build, look in:
+The executable is:
 
-- `src-tauri/target/release/blemmcord-lite.exe`
-- `src-tauri/target/release/bundle/nsis/` for the setup EXE
-- `src-tauri/target/release/bundle/msi/` for the MSI installer
+```
+src-tauri/target/release/blemmcord-lite.exe
+```
 
-The installer build is configured in `src-tauri/tauri.conf.json`. Building on Windows is required to produce Windows installers.
+A successful push to `main` will also trigger the Windows GitHub Actions build. The workflow uploads the executable as a downloadable build artifact.
 
-## Account safety and compatibility
+## Architecture
 
-Blemmcord Lite opens `https://discord.com/app` as a top-level WebView2 page. It does not embed Discord in an iframe, extract account tokens, automate a user account, or call undocumented Discord endpoints.
+- **Rust** owns application state and business logic.
+- **egui** renders the native interface.
+- **wgpu** provides GPU-backed rendering.
+- No browser engine is embedded in the main application window.
 
-Discord's web client remains responsible for login, servers, messages, voice, video, and other supported web-client features. Since WebView2 is Chromium-based, lower memory usage is not guaranteed; benchmark it on the target PC before drawing conclusions. This third-party wrapper is not an official Discord product and may need maintenance if Discord changes its web client or wrapper compatibility.
+## Discord connectivity and account safety
+
+Blemmcord Lite will not extract session tokens, automate a normal Discord user account, or imitate undocumented/private Discord client endpoints. Discord's supported bot and OAuth2 APIs do not provide a complete replacement for the normal Discord user client. That means the current native shell is not yet a full Discord client; supported connectivity options must be designed separately.
+
+This project is an independent third-party project and is not affiliated with or endorsed by Discord.
 
 ## Project layout
 
 ```
-.
-├── src/
-│   └── index.html
-├── src-tauri/
-│   ├── capabilities/
-│   │   └── default.json
-│   ├── src/
-│   │   ├── lib.rs
-│   │   └── main.rs
-│   ├── build.rs
-│   ├── Cargo.toml
-│   └── tauri.conf.json
-├── .gitignore
-├── package.json
-└── README.md
+src-tauri/
+  Cargo.toml
+  src/
+    main.rs
+    lib.rs
+`
 ```
 
-## Roadmap
+## License
 
-1. Establish the Tauri/WebView2 desktop shell.
-2. Verify Discord login, navigation, messaging, attachments, and voice/video on Windows.
-3. Add app-owned settings and lightweight runtime/memory diagnostics.
-4. Benchmark idle and active memory usage against the official desktop client.
-5. Finalize branding, icons, and installer testing.
+Project source is maintained by WebsiteDevelopmentStudios. Third-party dependencies retain their respective licenses.

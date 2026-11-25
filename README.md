@@ -65,7 +65,7 @@ src-tauri/
   src/
     main.rs
     lib.rs
-`
+```
 ```
 
 ## License

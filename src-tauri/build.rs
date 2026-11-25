@@ -1,3 +1,3 @@
 fn main() {
-    tauri_build::build()
+    // Native eframe application: no web frontend or Tauri build step.
 }

@@ -1,0 +1,22 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Rust
+target/
+**/target/
+
+# Tauri build output
+src-tauri/gen/
+src-tauri/icons/*.icns
+src-tauri/icons/*.ico
+src-tauri/icons/*.png
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
